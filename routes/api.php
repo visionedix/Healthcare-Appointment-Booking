@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\ProfessionalController;
+use App\Http\Controllers\HealthCareProfessionalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +22,24 @@ use App\Http\Controllers\ProfessionalController;
 // });
 
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/professionals', [ProfessionalController::class, 'index']);
-    Route::post('/appointments', [AppointmentController::class, 'book']);
-    Route::get('/appointments', [AppointmentController::class, 'userAppointments']);
-    Route::delete('/appointments/{id}', [AppointmentController::class, 'cancel']);
-    Route::post('/appointments/{id}/complete', [AppointmentController::class, 'markComplete']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::group(['prefix' => 'professional', 'name' => 'professional.'], function () {
+        Route::get('/', [HealthCareProfessionalController::class, 'index'])->name('all');
+        Route::get('/{id}', [HealthCareProfessionalController::class, 'show'])->name('byId');
+    });
+
+    Route::group(['prefix' => 'appointment', 'name' => 'appointment.'], function () {
+        Route::get('/', [AppointmentController::class, 'userAppointments'])->name('userAppointments');
+        Route::post('/', [AppointmentController::class, 'book'])->name('book');
+        Route::post('/{id}/complete', [AppointmentController::class, 'markComplete'])->name('markComplete');
+        Route::delete('/{id}', [AppointmentController::class, 'cancel'])->name('cancel');
+    });
+    
+   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 });
