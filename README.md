@@ -26,7 +26,9 @@ It supports user authentication, appointment scheduling, cancellation, and listi
 ## Getting Started
 
 PostMan Collection : https://documenter.getpostman.com/view/47168823/2sB3B8qYKK#815ca56c-74c9-450b-a576-8b2d82a4fb73
+
 Project Docker URL : http://localhost:9001/api
+
 Project Without Docker URL : http://localhost/Healthcare-Appointment-Booking/public/api
 
 ## Project Setup with Docker
