@@ -34,10 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::group(['prefix' => 'appointment', 'name' => 'appointment.'], function () {
+        Route::get('/all', [AppointmentController::class, 'allAppointments'])->name('allAppointments');
         Route::get('/', [AppointmentController::class, 'userAppointments'])->name('userAppointments');
         Route::post('/', [AppointmentController::class, 'book'])->name('book');
-        Route::post('/{id}/complete', [AppointmentController::class, 'markComplete'])->name('markComplete');
-        Route::delete('/{id}', [AppointmentController::class, 'cancel'])->name('cancel');
+        Route::post('/complete/{id}', [AppointmentController::class, 'markComplete'])->name('markComplete');
+        Route::delete('/cancel/{id}', [AppointmentController::class, 'cancel'])->name('cancel');
     });
     
    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
