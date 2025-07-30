@@ -1,0 +1,60 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  
+  php:
+    container_name: hola-data-backend
+    build:
+        context: ./src
+        dockerfile: Dockerfile
+    ports:
+      - '8083:3000'
+    command: "php artisan serve --host=0.0.0.0 --port=3000"
+    volumes:
+      - './src:/holadata/'
+    env_file:
+      - './src/.env'  
+
+  composer:
+    container_name: hola-data-composer
+    image: composer/composer
+    volumes:
+      - ./src/:/usr/local/apache2/htdocs/
+    working_dir: /usr/local/apache2/htdocs/
+    command: install    
+
+  mysql:
+    image: mysql:8.0.27
+    container_name: hola-data-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: hola-data360
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 'password'
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: hola-data-pma
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 300M
+    restart: always
+    ports:
+      - 8087:80
+
+  # redis:
+  #   image: redis:4.0
+  #   container_name: hola-data-app_redis
+  #   ports:
+  #     - "6382:6379"
+
+
+  
