@@ -21,7 +21,7 @@ services:
     volumes:
       - ./src/:/usr/local/apache2/htdocs/
     working_dir: /usr/local/apache2/htdocs/
-    command: update    
+    command: install
 
   mysql:
     image: mysql:8.0.27
