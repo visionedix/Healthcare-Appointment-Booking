@@ -51,7 +51,7 @@ Project Without Docker URL : http://localhost/Healthcare-Appointment-Booking/pub
    
    sudo docker compose up --build -d
    
-   sudo docker compose exec php php artisan migrate
+   sudo docker compose exec php php artisan migrate —-seed
 
 6. Generate App Key
    
@@ -59,14 +59,14 @@ Project Without Docker URL : http://localhost/Healthcare-Appointment-Booking/pub
 
 7. Run Migrations and Seeders
     
-   sudo docker compose exec php php artisan migrate
+   sudo docker compose exec php php artisan db:seed
 
 8. MySql Config In .env
    
    DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
+   DB_HOST=musql
    DB_PORT=3306
-   DB_DATABASE=appointment
+   DB_DATABASE=Appointment
    DB_USERNAME=admin
    DB_PASSWORD=password
 
@@ -98,6 +98,6 @@ Project Without Docker URL : http://localhost/Healthcare-Appointment-Booking/pub
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
-   DB_DATABASE=healthcare
-   DB_USERNAME=root
-   DB_PASSWORD=
+   DB_DATABASE=dbname
+   DB_USERNAME=username
+   DB_PASSWORD=password
