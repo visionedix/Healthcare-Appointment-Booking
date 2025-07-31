@@ -47,9 +47,9 @@ RUN cat php.ini
 
 
 # Generate the Laravel application key
-RUN php artisan key:generate
-RUN php artisan optimize:clear
-RUN php artisan migrate --seed
+#RUN php artisan key:generate
+#RUN php artisan optimize:clear
+#RUN php artisan migrate --seed
 
 
 
